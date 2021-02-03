@@ -1,18 +1,16 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
 
+// Global variables - characters to be used in password 
 var numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
 var upperCaseAlpha = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"] 
 var lowerCaseAlpha = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"] 
 var specialCharacters = ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")"]
 
-//global variables above -- can be called anywhere // 
-// write a function that prompts the user for length, special characters needed? //
+// Function that captures user inputs 
 function getuserinput(){
-  // prompt the user to how long they want password to be // 
+  // ASK the user how long they want password to be 
   var passwordLength = prompt("How long do you want your password to be?");
-
-  // ALERT the user if a number is not inputted // 
   if (isNaN(passwordLength) === true) { 
     alert("Please input a number!");
     return; 
@@ -25,32 +23,60 @@ function getuserinput(){
     alert("Passowrd must be 128 charters or less ")
     return;
   }
-   // CONFIRM if special characters are needed or not // 
+   // CONFIRM if special characters are needed or not  
    var needSpecialCharacters = confirm("Does your password need special characters?"); 
-   // confirm if numeric characters needed //
+
+   // CONFIRM if numeric characters needed 
    var needNumericCharacters = confirm("Does your password require numbers?");
+   
    // CONFIRM if uppercase 
    var needUppercaseLetters = confirm("Does your password require uppercase characters?");
+   
+   // OBJECT stores the length of the password to be generated, and if special characters, numbers, and uppercase letters are required
    var userInput = {length: passwordLength, specCharacters: needSpecialCharacters, numericCharacters: needNumericCharacters, upperCase: needUppercaseLetters};
    return userInput
 }
 
+// function that will grab random characters from Array - *used "array" for knowledge*
+function getRandomCharacter(array) {
+  var randomIndex = Math.floor(Math.random() * array.length);
+  var randomCharacter = array[randomIndex];
+  return randomCharacter;
+}
 
-// write a function that creates a password length < 8 128 >
+// write a function that creates a password > 8 < 128 characters 
 function generatePassword() {
-
+  // stores the inputs from above
   var userInputFromObject = getuserinput();
-  // RETURN a password //
-  // create a new array based on user inputs 
-  var charactersWeCanUse = []
+  // RETURN a password 
+  var generatedPassword = []
+  
+  // Array that stores password requirments  
+  var inputTypeReq = lowerCaseAlpha
+
   // conditional statement that adds special characters if the user says they need them ()
   if (userInputFromObject.specCharacters) {
-  // if the user does want special characters, concatenate special characters into array //
-    charactersWeCanUse = charactersWeCanUse.concat(specialCharacters); 
-    console.log(charactersWeCanUse)
+    inputTypeReq = inputTypeReq.concat(specialCharacters); //*setting the value**
   } 
+
   // conditional statement that adds uperrcase characters if the user says they need them
+  if (userInputFromObject.upperCase) {
+    inputTypeReq = inputTypeReq.concat(upperCaseAlpha);
+  } 
+
   // conditional statement that adds numbers if the user says they need them
+  if (userInputFromObject.numericCharacters) {
+    inputTypeReq = inputTypeReq.concat(numbers);
+  } 
+  
+  // for loop - 
+  for (i = 0; i < userInputFromObject.length; i++) {
+   // run get random function on 'userInputFromObject'
+   var anycharacter = getRandomCharacter(inputTypeReq)
+   // push the result to 'var generatedpassword'
+   generatedPassword.push(anycharacter);
+  }
+   return generatedPassword.join('');
 }
 
 // Write password to the #password input
@@ -65,6 +91,7 @@ function writePassword() {
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
+
 
 
 
