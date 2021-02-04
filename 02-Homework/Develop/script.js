@@ -7,9 +7,10 @@ var upperCaseAlpha = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"
 var lowerCaseAlpha = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"] 
 var specialCharacters = ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")"]
 
-// Function that captures user inputs 
+// Function that captures user input upon selecting button 
 function getuserinput(){
-  // ASK the user how long they want password to be 
+
+  // ASK the user how long they want password to be - make user start over if the password is > 8, > 128, or is not a number 
   var passwordLength = prompt("How long do you want your password to be?");
   if (isNaN(passwordLength) === true) { 
     alert("Please input a number!");
@@ -76,7 +77,7 @@ function generatePassword() {
    // push the result to 'var generatedpassword'
    generatedPassword.push(anycharacter);
   }
-   return generatedPassword.join('');
+   return generatedPassword.join('')
 }
 
 // Write password to the #password input
