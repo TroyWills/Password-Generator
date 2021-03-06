@@ -1,3 +1,1 @@
-# Password-Generator
-
-*will re-submit READme upon readme generator homework assignment being completed* 
+Application to randomly generate a passowrd between 8-128 characters dependent on user input. P
